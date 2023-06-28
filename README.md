@@ -1,4 +1,4 @@
-# Chess Clock App
+# Chess Clock App (Flutter)
 
 This is a chess clock application built with Get library and Flutter Material. The application can be used to track time during chess matches between two players.
 
