@@ -47,17 +47,20 @@ class TimerButtons extends GetView<TimerController> {
             Flexible(
               flex: 1,
               child: Obx(
-                () => DropdownButton(
-                    value: timerController.selectedTime.value,
-                    icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-                    style: const TextStyle(color: Colors.white),
-                    dropdownColor: ColorService.light_brown,
-                    iconEnabledColor: Colors.white,
-                    isExpanded: true,
-                    items: timeOptions,
-                    onChanged: (int? value) {
-                      timerController.selectedTime.value = value!;
-                    }),
+                () => Visibility(
+                  visible: timerController.hasTimerNotStarted.value,
+                  child: DropdownButton(
+                      value: timerController.selectedTime.value,
+                      icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                      style: const TextStyle(color: Colors.white),
+                      dropdownColor: ColorService.light_brown,
+                      iconEnabledColor: Colors.white,
+                      isExpanded: true,
+                      items: timeOptions,
+                      onChanged: (int? value) {
+                        timerController.selectedTime.value = value!;
+                      }),
+                ),
               ),
             ),
             Flexible(

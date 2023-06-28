@@ -8,6 +8,7 @@ class TimerController extends GetxController {
   RxBool isTimer2Paused = RxBool(false);
   RxString turn = RxString("");
   RxInt selectedTime = RxInt(300);
+  RxBool hasTimerNotStarted = RxBool(true);
 
   void changeTurn(nextTurn) {
     turn.value = nextTurn;
@@ -16,11 +17,13 @@ class TimerController extends GetxController {
   void setIsTimer1Resumed() {
     isTimer1Paused.value = false;
     countdownController1.start();
+    hasTimerNotStarted.value = false;
   }
 
   void setIsTimer2Resumed() {
     isTimer2Paused.value = false;
     countdownController2.start();
+    hasTimerNotStarted.value = false;
   }
 
   void setIsTimer1Paused() {
@@ -56,5 +59,6 @@ class TimerController extends GetxController {
     isTimer1Paused.value = false;
     isTimer2Paused.value = false;
     changeTurn("");
+    hasTimerNotStarted.value = true;
   }
 }
