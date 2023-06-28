@@ -7,8 +7,7 @@ class TimerController extends GetxController {
   RxBool isTimer1Paused = RxBool(false);
   RxBool isTimer2Paused = RxBool(false);
   RxString turn = RxString("");
-
-  var selectedTime = 300.obs;
+  RxInt selectedTime = RxInt(300);
 
   void changeTurn(nextTurn) {
     turn.value = nextTurn;
