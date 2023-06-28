@@ -34,18 +34,21 @@ class HomeScreen extends GetView<TimerController> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
-                        child: Center(
-                          child: Countdown(
-                            controller: timerController.countdownController1,
-                            seconds: timerController.selectedTime.toInt(),
-                            build: (BuildContext context, double time) => Text(
-                              doubleToTime(time).toString(),
-                              style: controller.turn.value == "white"
-                                  ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
-                                  : Theme.of(context).textTheme.bodyLarge,
+                        child: RotatedBox(
+                          quarterTurns: -2,
+                          child: Center(
+                            child: Countdown(
+                              controller: timerController.countdownController1,
+                              seconds: timerController.selectedTime.toInt(),
+                              build: (BuildContext context, double time) => Text(
+                                doubleToTime(time).toString(),
+                                style: controller.turn.value == "white"
+                                    ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
+                                    : Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              interval: const Duration(milliseconds: 1000),
+                              onFinished: () {},
                             ),
-                            interval: const Duration(milliseconds: 1000),
-                            onFinished: () {},
                           ),
                         ),
                       ),
