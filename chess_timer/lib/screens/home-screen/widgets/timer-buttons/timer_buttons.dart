@@ -1,4 +1,5 @@
 import 'package:chess_timer/features/app-features/controllers/timer_controller.dart';
+import 'package:chess_timer/screens/home-screen/widgets/time-options-dropdown/time_options_dropdown.dart';
 import 'package:chess_timer/services/color_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,14 +12,6 @@ class TimerButtons extends GetView<TimerController> {
   @override
   Widget build(BuildContext context) {
     TimerController timerController = Get.put(TimerController());
-
-    List<DropdownMenuItem<int>> timeOptions = [
-      const DropdownMenuItem(value: 60, child: Text("1 min")),
-      const DropdownMenuItem(value: 180, child: Text("3 min")),
-      const DropdownMenuItem(value: 300, child: Text("5 min")),
-      const DropdownMenuItem(value: 600, child: Text("10 min")),
-      const DropdownMenuItem(value: 1800, child: Text("30 min")),
-    ];
 
     return Container(
       color: ColorService.light_brown,
@@ -53,17 +46,7 @@ class TimerButtons extends GetView<TimerController> {
               child: Obx(
                 () => Visibility(
                   visible: timerController.hasTimerNotStarted.value,
-                  child: DropdownButton(
-                      value: timerController.selectedTime.value,
-                      icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-                      style: const TextStyle(color: Colors.white),
-                      dropdownColor: ColorService.light_brown,
-                      iconEnabledColor: Colors.white,
-                      isExpanded: true,
-                      items: timeOptions,
-                      onChanged: (int? value) {
-                        timerController.selectedTime.value = value!;
-                      }),
+                  child: TimeOptionsDropDown(timerController: timerController),
                 ),
               ),
             ),
