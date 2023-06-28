@@ -19,7 +19,7 @@ class HomeScreen extends GetView<TimerController> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                if (timerController.isTimer1Paused.value) {
+                if (timerController.isTimer1Paused.value && timerController.isTimer2Paused.value) {
                   () {};
                 } else {
                   timerController.setIsTimer2Resumed();
@@ -59,7 +59,7 @@ class HomeScreen extends GetView<TimerController> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                if (timerController.isTimer2Paused.value) {
+                if (timerController.isTimer2Paused.value && timerController.isTimer1Paused.value) {
                   () {};
                 } else {
                   timerController.setIsTimer1Resumed();

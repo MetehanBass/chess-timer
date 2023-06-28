@@ -4,7 +4,6 @@ import 'package:timer_count_down/timer_controller.dart';
 class TimerController extends GetxController {
   final CountdownController countdownController1 = CountdownController(autoStart: false);
   final CountdownController countdownController2 = CountdownController(autoStart: false);
-  var isTimersStarted = false.obs;
   RxBool isTimer1Paused = RxBool(false);
   RxBool isTimer2Paused = RxBool(false);
   RxString turn = RxString("");
@@ -48,5 +47,15 @@ class TimerController extends GetxController {
       countdownController1.resume();
       isTimer1Paused.value = false;
     }
+  }
+
+  void onTimersRestart() {
+    countdownController1.restart();
+    countdownController2.restart();
+    countdownController1.pause();
+    countdownController2.pause();
+    isTimer1Paused.value = false;
+    isTimer2Paused.value = false;
+    changeTurn("");
   }
 }

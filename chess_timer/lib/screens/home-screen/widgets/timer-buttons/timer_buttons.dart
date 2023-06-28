@@ -33,7 +33,12 @@ class TimerButtons extends GetView<TimerController> {
               ),
             ),
             Spacer(),
-            Text("Stop"),
+            IconButton(
+              onPressed: () {
+                timerController.onTimersRestart();
+              },
+              icon: Icon(Icons.replay),
+            ),
           ],
         ),
       ),
