@@ -32,10 +32,14 @@ class TimerButtons extends GetView<TimerController> {
               child: Obx(
                 () => IconButton(
                   onPressed: () {
-                    if (timerController.isTimer1Paused.value && timerController.isTimer2Paused.value) {
-                      timerController.onTimersResume();
+                    if (timerController.hasTimerNotStarted.value) {
+                      () {};
                     } else {
-                      timerController.onTimersPause();
+                      if (timerController.isTimer1Paused.value && timerController.isTimer2Paused.value) {
+                        timerController.onTimersResume();
+                      } else {
+                        timerController.onTimersPause();
+                      }
                     }
                   },
                   icon: timerController.isTimer1Paused.value && timerController.isTimer2Paused.value

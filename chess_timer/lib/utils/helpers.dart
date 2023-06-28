@@ -9,3 +9,10 @@ String doubleToTime(double value) {
     return '$hoursString:$minutesString';
   }
 }
+
+checkEnable(controller) {
+  if (controller.isTimer1Paused.value && controller.isTimer2Paused.value) {
+    return true;
+  }
+  return false;
+}

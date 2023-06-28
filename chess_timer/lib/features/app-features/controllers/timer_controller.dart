@@ -5,7 +5,9 @@ class TimerController extends GetxController {
   final CountdownController countdownController1 = CountdownController(autoStart: false);
   final CountdownController countdownController2 = CountdownController(autoStart: false);
   RxBool isTimer1Paused = RxBool(false);
+  RxBool isTimer1Finished = RxBool(false);
   RxBool isTimer2Paused = RxBool(false);
+  RxBool isTimer2Finished = RxBool(false);
   RxString turn = RxString("");
   RxInt selectedTime = RxInt(300);
   RxBool hasTimerNotStarted = RxBool(true);
@@ -58,6 +60,8 @@ class TimerController extends GetxController {
     countdownController2.pause();
     isTimer1Paused.value = false;
     isTimer2Paused.value = false;
+    isTimer1Finished.value = false;
+    isTimer2Finished.value = false;
     changeTurn("");
     hasTimerNotStarted.value = true;
   }

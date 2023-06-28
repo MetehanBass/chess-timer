@@ -19,7 +19,7 @@ class HomeScreen extends GetView<TimerController> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                if (timerController.isTimer1Paused.value && timerController.isTimer2Paused.value) {
+                if (checkEnable(timerController) || timerController.isTimer1Finished.value) {
                   () {};
                 } else {
                   timerController.setIsTimer2Resumed();
@@ -29,7 +29,11 @@ class HomeScreen extends GetView<TimerController> {
               },
               child: Obx(
                 () => Container(
-                  color: controller.turn.value == "white" ? ColorService.board_white : ColorService.board_black,
+                  color: timerController.isTimer1Finished.value
+                      ? Colors.red[400]
+                      : timerController.turn.value == "white"
+                          ? ColorService.board_white
+                          : ColorService.board_black,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -40,14 +44,21 @@ class HomeScreen extends GetView<TimerController> {
                             child: Countdown(
                               controller: timerController.countdownController1,
                               seconds: timerController.selectedTime.toInt(),
-                              build: (BuildContext context, double time) => Text(
-                                doubleToTime(time).toString(),
-                                style: controller.turn.value == "white"
-                                    ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
-                                    : Theme.of(context).textTheme.bodyLarge,
-                              ),
+                              build: (BuildContext context, double time) => timerController.isTimer1Finished.value
+                                  ? Text(
+                                      "Time is up!",
+                                      style: Theme.of(context).textTheme.bodyLarge,
+                                    )
+                                  : Text(
+                                      doubleToTime(time).toString(),
+                                      style: timerController.turn.value == "white"
+                                          ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
+                                          : Theme.of(context).textTheme.bodyLarge,
+                                    ),
                               interval: const Duration(milliseconds: 1000),
-                              onFinished: () {},
+                              onFinished: () {
+                                timerController.isTimer1Finished.value = true;
+                              },
                             ),
                           ),
                         ),
@@ -62,7 +73,7 @@ class HomeScreen extends GetView<TimerController> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                if (timerController.isTimer2Paused.value && timerController.isTimer1Paused.value) {
+                if (checkEnable(timerController) || timerController.isTimer1Finished.value) {
                   () {};
                 } else {
                   timerController.setIsTimer1Resumed();
@@ -72,7 +83,11 @@ class HomeScreen extends GetView<TimerController> {
               },
               child: Obx(
                 () => Container(
-                  color: controller.turn.value == "black" ? ColorService.board_white : ColorService.board_black,
+                  color: timerController.isTimer2Finished.value
+                      ? Colors.red[400]
+                      : controller.turn.value == "black"
+                          ? ColorService.board_white
+                          : ColorService.board_black,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -81,12 +96,19 @@ class HomeScreen extends GetView<TimerController> {
                           child: Countdown(
                             controller: timerController.countdownController2,
                             seconds: timerController.selectedTime.toInt(),
-                            build: (BuildContext context, double time) => Text(doubleToTime(time).toString(),
-                                style: controller.turn.value == "black"
-                                    ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
-                                    : Theme.of(context).textTheme.bodyLarge),
+                            build: (BuildContext context, double time) => timerController.isTimer2Finished.value
+                                ? Text(
+                                    "Time is up!",
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  )
+                                : Text(doubleToTime(time).toString(),
+                                    style: controller.turn.value == "black"
+                                        ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
+                                        : Theme.of(context).textTheme.bodyLarge),
                             interval: const Duration(milliseconds: 1000),
-                            onFinished: () {},
+                            onFinished: () {
+                              timerController.isTimer2Finished.value = true;
+                            },
                           ),
                         ),
                       ),
